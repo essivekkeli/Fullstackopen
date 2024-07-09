@@ -74,9 +74,11 @@ const Header = (props) => {
 }
 
 const Button = ({ handleClick, text }) => {
+  return (
   <button onClick={handleClick}>
     {text}
   </button>
+  )
 }
 
 const Statistics = (props) => {
@@ -106,7 +108,7 @@ const App = () => {
     const updatedNeutral = neutral + 1
     setNeutral(updatedNeutral)
   }
-  
+
   const handleBadClick = () => {
     const updatedBad = bad + 1
     setBad(updatedBad)
