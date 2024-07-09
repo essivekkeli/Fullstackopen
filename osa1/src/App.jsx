@@ -148,8 +148,13 @@ const App = () => {
       <Statistics title={'Good'} /> {good}
       <Statistics title={'Neutral'}/> {neutral}
       <Statistics title={'Bad'}/> {bad}
-     
-      
+      <br></br>
+      {good + neutral + bad} 
+      <br></br>
+      {(good + neutral + bad)/3} 
+
+      <br></br>
+      {(good + neutral + bad)/good} 
     </div>
   )
 }
