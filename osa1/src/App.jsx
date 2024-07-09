@@ -89,6 +89,25 @@ const Statistics = (props) => {
   )
 }
 
+/*
+const Total = (props) => {
+  return (
+   
+  )
+}
+
+const Average = ({ handleClick, text }) => {
+  return (
+
+  )
+}
+
+const Positive = (props) => {
+  return (
+ 
+  )
+}*/
+
 import { useState } from 'react'
 
 const App = () => {
@@ -134,7 +153,6 @@ const App = () => {
     </div>
   )
 }
-
 
 
 export default App
