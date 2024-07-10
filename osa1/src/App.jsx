@@ -89,25 +89,6 @@ const Statistics = (props) => {
   )
 }
 
-/*
-const Total = (props) => {
-  return (
-   
-  )
-}
-
-const Average = ({ handleClick, text }) => {
-  return (
-
-  )
-}
-
-const Positive = (props) => {
-  return (
- 
-  )
-}*/
-
 import { useState } from 'react'
 
 const App = () => {
@@ -133,6 +114,8 @@ const App = () => {
     setBad(updatedBad)
   }
 
+  const all = good+neutral+bad
+
 
   return (
     <div>
@@ -145,16 +128,13 @@ const App = () => {
       
       <Header name= {label2}/>
       
-      <Statistics title={'Good'} /> {good}
+      <Statistics title={'Good'}/> {good}
       <Statistics title={'Neutral'}/> {neutral}
       <Statistics title={'Bad'}/> {bad}
-      <br></br>
-      {good + neutral + bad} 
-      <br></br>
-      {(good + neutral + bad)/3} 
 
-      <br></br>
-      {(good + neutral + bad)/good} 
+      <Statistics title={'Sum'}/>{all} 
+      <Statistics title={'Average'}/>{(all)/3} 
+      <Statistics title={'Positive'}/>{(good/all)} 
     </div>
   )
 }
