@@ -75,28 +75,34 @@ const Header = (props) => {
 
 const Button = ({ handleClick, text }) => {
   return (
-  <button onClick={handleClick}>
-    {text}
-  </button>
+    <button onClick={handleClick}>
+      {text}
+    </button>
   )
 }
 
 const Statistics = (props) => {
-  if(props.allClicks.length === 0) {
+  if (props.allClicks === 0) {
     return (
       <div>
-        <p></p>
+        No feedback given
       </div>
     )
   }
-  return (
-    <div>
-      <p>{props.title} : {props.allClicks.join(' ')}</p>
-       
-    </div>
-  )
+  else {
+    return (
+      <div>
+        <p>Good {props.good}</p>
+        <p>Neutral {props.neutral}</p>
+        <p>Bad {props.bad}</p>
+        <p>Sum {props.sum}</p>
+        <p>Average {props.avg}</p>
+        <p>Positive {props.pos} %</p>
+      </div>
+    )
+  }
 }
-    
+
 
 import { useState } from 'react'
 
@@ -107,24 +113,37 @@ const App = () => {
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
+  const [allClicks, setClicks] = useState(0)
 
   const handleGoodClick = () => {
     const updatedGood = good + 1
     setGood(updatedGood)
+    handleAllClick(updatedGood, neutral, bad)
   }
 
   const handleNeutralClick = () => {
     const updatedNeutral = neutral + 1
     setNeutral(updatedNeutral)
+    handleAllClick(good, updatedNeutral, bad)
   }
 
   const handleBadClick = () => {
     const updatedBad = bad + 1
     setBad(updatedBad)
+    handleAllClick(good, neutral, updatedBad)
   }
 
-  const all = good+neutral+bad
+ 
+  const handleAllClick = (good, neutral, bad) => {
+    const all = good + neutral + bad
+    setClicks(all)
 
+  }
+  
+  const average = ((good-bad)/allClicks)
+
+  const positive = ((good/allClicks)*100)
+ 
 
   return (
     <div>
@@ -134,16 +153,16 @@ const App = () => {
       <Button handleClick={handleNeutralClick} text='Neutral' />
       <Button handleClick={handleBadClick} text='Bad' />
       <br></br>
-      
-      <Header name= {label2}/>
-      
-      <Statistics allClicks={allClicks} title={'Good'}/> {good}
-      <Statistics allClicks={allClicks} title={'Neutral'}/> {neutral}
-      <Statistics allClicks={allClicks} title={'Bad'}/> {bad}
 
-      <Statistics allClicks={allClicks} title={'Sum'}/>{all} 
-      <Statistics allClicks={allClicks} title={'Average'}/>{(all)/3} 
-      <Statistics allClicks={allClicks} title={'Positive'}/>{(good/all)} 
+      <Header name={label2} />
+
+      <Statistics allClicks={allClicks} 
+      good={good} 
+      bad={bad} 
+      neutral={neutral}
+      avg={average}
+      sum={allClicks}
+      pos={positive}/> 
     </div>
   )
 }
