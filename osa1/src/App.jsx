@@ -82,12 +82,21 @@ const Button = ({ handleClick, text }) => {
 }
 
 const Statistics = (props) => {
+  if(props.allClicks.length === 0) {
+    return (
+      <div>
+        <p></p>
+      </div>
+    )
+  }
   return (
     <div>
-      <p>{props.title}</p>
+      <p>{props.title} : {props.allClicks.join(' ')}</p>
+       
     </div>
   )
 }
+    
 
 import { useState } from 'react'
 
@@ -128,13 +137,13 @@ const App = () => {
       
       <Header name= {label2}/>
       
-      <Statistics title={'Good'}/> {good}
-      <Statistics title={'Neutral'}/> {neutral}
-      <Statistics title={'Bad'}/> {bad}
+      <Statistics allClicks={allClicks} title={'Good'}/> {good}
+      <Statistics allClicks={allClicks} title={'Neutral'}/> {neutral}
+      <Statistics allClicks={allClicks} title={'Bad'}/> {bad}
 
-      <Statistics title={'Sum'}/>{all} 
-      <Statistics title={'Average'}/>{(all)/3} 
-      <Statistics title={'Positive'}/>{(good/all)} 
+      <Statistics allClicks={allClicks} title={'Sum'}/>{all} 
+      <Statistics allClicks={allClicks} title={'Average'}/>{(all)/3} 
+      <Statistics allClicks={allClicks} title={'Positive'}/>{(good/all)} 
     </div>
   )
 }
