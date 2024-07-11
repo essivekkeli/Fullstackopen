@@ -224,7 +224,7 @@ const Vote = (props) => {
     console.log("ei ääniä")
     return (
       <div>
-        No votes yet
+        <p>No votes yet</p>
       </div>
     )
   } else {
@@ -275,6 +275,7 @@ const App = () => {
 
 
   const maxVotes = Math.max(...vote)
+
   const maxIndex = vote.indexOf(vote[selected]);
   const maxAnecdote = anecdotes[maxIndex]
 
