@@ -237,6 +237,14 @@ const Vote = (props) => {
   }
 }
 
+const Header = (props) => {
+  return (
+    <div>
+      <h1> {props.name}</h1>
+    </div>
+  )
+}
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -258,7 +266,7 @@ const App = () => {
   }
 
   const handlePoints = () => {
-    console.log("tarkistus",selected)
+    console.log("tarkistus", selected)
     const copy = [...vote]
     copy[selected] += 1
     setVote(copy)
@@ -266,12 +274,27 @@ const App = () => {
   }
 
 
+  const maxVotes = Math.max(...vote)
+  const maxIndex = vote.indexOf(vote[selected]);
+  const maxAnecdote = anecdotes[maxIndex]
+
+
+  const title1 = "Anecdote of the day"
+  const title2 = "Anecdote with the most votes"
+
+
   return (
     <div>
+      <Header name={title1} />
       <Anecdote selected={anecdotes[selected]} />
       <Vote vote={vote[selected]} />
       <Button handleClick={handlePoints} text='Vote' />
       <Button handleClick={handleClick} text='Next anecdote' />
+
+      <Header name={title2} />
+      <p>{maxAnecdote}</p>
+      <p>{maxVotes}</p>
+
     </div>
   )
 }
