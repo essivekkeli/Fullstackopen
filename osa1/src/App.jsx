@@ -85,9 +85,15 @@ const Button = ({ handleClick, text }) => {
 
 const StatisticLine = (props) => {
   return (
-    <div>
-      <p> {props.text} {props.value} {props.pros}</p>
-    </div>
+    <table>
+      <tbody>
+        <tr>
+          <td>{props.text} </td>
+          <td>{props.value}</td>
+          <td>{props.pros}</td>
+        </tr>
+      </tbody>
+    </table>
   )
 }
 
@@ -103,12 +109,12 @@ const Statistics = (props) => {
   else {
     return (
       <div>
-        <StatisticLine text="Good:" value={props.good}/>
-        <StatisticLine text="Neutral:" value={props.neutral}/>
-        <StatisticLine text="Bad:" value={props.bad}/>
-        <StatisticLine text="Sum:" value={props.sum}/>
-        <StatisticLine text="Average:" value={props.avg}/>
-        <StatisticLine text="Positive:" value={props.pos} pros="%"/>
+        <StatisticLine text="Good:" value={props.good} />
+        <StatisticLine text="Neutral:" value={props.neutral} />
+        <StatisticLine text="Bad:" value={props.bad} />
+        <StatisticLine text="Sum:" value={props.sum} />
+        <StatisticLine text="Average:" value={props.avg} />
+        <StatisticLine text="Positive:" value={props.pos} pros="%" />
       </div>
     )
   }
@@ -141,17 +147,16 @@ const App = () => {
     handleAllClick(good, neutral, updatedBad)
   }
 
- 
+
   const handleAllClick = (good, neutral, bad) => {
     const all = good + neutral + bad
     setClicks(all)
-
   }
-  
-  const average = ((good-bad)/allClicks)
 
-  const positive = ((good/allClicks)*100)
- 
+  const average = ((good - bad) / allClicks)
+
+  const positive = ((good / allClicks) * 100)
+
 
   return (
     <div>
@@ -164,14 +169,14 @@ const App = () => {
 
       <Header name={label2} />
 
-      <Statistics 
-      allClicks={allClicks}
-      good={good}
-      bad={bad}
-      neutral={neutral}
-      sum={allClicks}
-      pos={positive}
-      avg={average}/> 
+      <Statistics
+        allClicks={allClicks}
+        good={good}
+        bad={bad}
+        neutral={neutral}
+        sum={allClicks}
+        pos={positive}
+        avg={average} />
     </div>
   )
 }
