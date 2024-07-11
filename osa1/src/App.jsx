@@ -65,6 +65,8 @@ const App = () => {
   )
 }*/
 
+import { useState } from 'react'
+
 const Header = (props) => {
   return (
     <div>
@@ -81,7 +83,16 @@ const Button = ({ handleClick, text }) => {
   )
 }
 
+const StatisticLine = (props) => {
+  return (
+    <div>
+      <p> {props.text} {props.value} {props.pros}</p>
+    </div>
+  )
+}
+
 const Statistics = (props) => {
+
   if (props.allClicks === 0) {
     return (
       <div>
@@ -92,19 +103,16 @@ const Statistics = (props) => {
   else {
     return (
       <div>
-        <p>Good {props.good}</p>
-        <p>Neutral {props.neutral}</p>
-        <p>Bad {props.bad}</p>
-        <p>Sum {props.sum}</p>
-        <p>Average {props.avg}</p>
-        <p>Positive {props.pos} %</p>
+        <StatisticLine text="Good:" value={props.good}/>
+        <StatisticLine text="Neutral:" value={props.neutral}/>
+        <StatisticLine text="Bad:" value={props.bad}/>
+        <StatisticLine text="Sum:" value={props.sum}/>
+        <StatisticLine text="Average:" value={props.avg}/>
+        <StatisticLine text="Positive:" value={props.pos} pros="%"/>
       </div>
     )
   }
 }
-
-
-import { useState } from 'react'
 
 const App = () => {
   const label1 = "Give feedback"
@@ -156,13 +164,14 @@ const App = () => {
 
       <Header name={label2} />
 
-      <Statistics allClicks={allClicks} 
-      good={good} 
-      bad={bad} 
+      <Statistics 
+      allClicks={allClicks}
+      good={good}
+      bad={bad}
       neutral={neutral}
-      avg={average}
       sum={allClicks}
-      pos={positive}/> 
+      pos={positive}
+      avg={average}/> 
     </div>
   )
 }
