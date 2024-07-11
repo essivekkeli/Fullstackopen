@@ -219,6 +219,24 @@ const Anecdote = (props) => {
   }
 }
 
+const Vote = (props) => {
+  if (!props.vote) {
+    console.log("ei ääniä")
+    return (
+      <div>
+        No votes yet
+      </div>
+    )
+  } else {
+    console.log("Nyt on ääniä")
+    return (
+      <div>
+        <p>Has {props.vote} votes</p>
+      </div>
+    )
+  }
+}
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -232,16 +250,27 @@ const App = () => {
   ]
 
   const [selected, setSelected] = useState(0)
+  const [vote, setVote] = useState(Array.from(new Uint8Array(anecdotes.length)))
 
   const handleClick = () => {
-    const randomSelection = Math.floor(Math.random()* anecdotes.length);
-    setSelected(anecdotes[randomSelection])
+    const randomSelection = Math.floor(Math.random() * anecdotes.length)
+    setSelected(randomSelection)
+  }
+
+  const handlePoints = () => {
+    console.log("tarkistus",selected)
+    const copy = [...vote]
+    copy[selected] += 1
+    setVote(copy)
+    console.log("kopio näyttää", copy)
   }
 
 
   return (
     <div>
-      <Anecdote selected={selected} />
+      <Anecdote selected={anecdotes[selected]} />
+      <Vote vote={vote[selected]} />
+      <Button handleClick={handlePoints} text='Vote' />
       <Button handleClick={handleClick} text='Next anecdote' />
     </div>
   )
