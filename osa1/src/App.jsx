@@ -295,7 +295,7 @@ const App = () => {
 
       <Header name={title2} />
       <p>{maxAnecdote}</p>
-      <p>{maxVotes}</p>
+      <p>{maxVotes} votes</p>
 
     </div>
   )
