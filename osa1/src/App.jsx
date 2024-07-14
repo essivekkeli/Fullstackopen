@@ -262,6 +262,7 @@ const App = () => {
 
   const handleClick = () => {
     const randomSelection = Math.floor(Math.random() * anecdotes.length)
+    console.log("random",randomSelection)
     setSelected(randomSelection)
   }
 
@@ -276,7 +277,7 @@ const App = () => {
 
   const maxVotes = Math.max(...vote)
 
-  const maxIndex = vote.indexOf(vote[selected]);
+  const maxIndex = vote.indexOf(maxVotes);
   const maxAnecdote = anecdotes[maxIndex]
 
 
