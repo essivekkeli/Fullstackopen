@@ -1,4 +1,11 @@
 
+const Header = (props) => {
+  return (
+    <div>
+      <h1>{props.name}</h1>
+    </div>
+  )
+}
 
 const Part = (props) => {
   console.log(props + "Part module")
@@ -13,22 +20,15 @@ const Content = (props) => {
   console.log(props + "Content module")
   return (
     <div>
-      <Part name={props.parts[0].name} exercises={props.parts[0].exercises} />
-      <Part name={props.parts[1].name} exercises={props.parts[1].exercises} />
-      <Part name={props.parts[2].name} exercises={props.parts[2].exercises} />
-    </div>
-  )
-}
-
-const Header = (props) => {
-  return (
-    <div>
-      <h1>{props.name}</h1>
+      <Part name={props.coursename} exercises={props.exe} />
+      <Part name={props.coursename} exercises={props.exe} />
+      <Part name={props.coursename} exercises={props.exe} />
     </div>
   )
 }
 
 
+/*
 const Total = (props) => {
   console.log(props + "Total module")
   
@@ -38,18 +38,19 @@ const Total = (props) => {
     </div>
   )
 }
-
+*/
 
 const Course = (props) => {
   console.log(props + "Course module")
   return (
     <div>
-      <Header name={course.name}/>
-      <Content parts={course.parts}/>
-      <Total parts={course.parts}/>
+      <Header name={props.course}/>
+      <Content parts1={props.parts} parts2={props.exparts}/>
+     
     </div>
   )
 }
+
 
 const App = (props) => {
   console.log(props, "")
@@ -77,10 +78,9 @@ const App = (props) => {
 
   return (
     <div>
-      <Course course={course} />
+      <Course course={course.name}  />
     </div>
   )
 }
-clog
 
 export default App
