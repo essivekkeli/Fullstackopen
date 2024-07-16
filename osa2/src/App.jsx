@@ -11,13 +11,15 @@ const Part = (props) => {
   console.log(props + "Part module")
   return (
     <div>
-      <p> {props.name} : {props.exercises} exercises</p>
+      <li> {props.name}:{props.exercises} exercises</li>
     </div>
   )
 }
 
 const Content = (props) => {
   console.log(props + "Content module")
+
+  
   return (
     <div>
       <Part name={props.coursename} exercises={props.exe} />
@@ -26,7 +28,6 @@ const Content = (props) => {
     </div>
   )
 }
-
 
 /*
 const Total = (props) => {
@@ -40,20 +41,25 @@ const Total = (props) => {
 }
 */
 
+/*
+lines={course.parts.map(parts =>
+  ({ name: parts.name, id: parts.id })
+)}*/
+
 const Course = (props) => {
-  console.log(props + "Course module")
+  console.log(props + "Pääseekö tänne? Course module")
   return (
     <div>
-      <Header name={props.course}/>
-      <Content parts1={props.parts} parts2={props.exparts}/>
-     
+      <Header name={props.course} />
+      <Content coursename={props.titles} exe={props.amountofex} />
+
     </div>
   )
 }
 
 
 const App = (props) => {
-  console.log(props, "")
+  console.log(props, "mitä prosp tulostaa Appin alussa")
   const course = {
     name: 'Half Stack application development',
     id: 1,
@@ -78,7 +84,17 @@ const App = (props) => {
 
   return (
     <div>
-      <Course course={course.name}  />
+      <Course
+        course={course.name}
+       
+        titles={course.parts.map(part =>
+          part.name
+        )}
+
+        amountofex={course.parts.map(part =>
+          part.exercises
+        )}
+      />
     </div>
   )
 }
