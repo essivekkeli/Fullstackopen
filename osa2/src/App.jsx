@@ -11,47 +11,42 @@ const Part = (props) => {
   console.log(props + "Part module")
   return (
     <div>
-      <li> {props.name}:{props.exercises} exercises</li>
+      <p> {props.name} : {props.exercises} exercises</p>
     </div>
   )
 }
 
 const Content = (props) => {
   console.log(props + "Content module")
-
-  
   return (
     <div>
-      <Part name={props.coursename} exercises={props.exe} />
-      <Part name={props.coursename} exercises={props.exe} />
-      <Part name={props.coursename} exercises={props.exe} />
+      {props.parts.map(part => (
+        <Part key={part.id} name={part.name} exercises={part.exercises} />
+      ))}
     </div>
   )
 }
 
-/*
-const Total = (props) => {
+
+const Total = ({parts}) => {
+  const sum = parts.reduce((acc, part) => acc + part.exercises, 0);
+
   console.log(props + "Total module")
-  
   return (
     <div>
-      <p> Total of {props.parts[0].exercises + props.parts[1].exercises + props.parts[2].exercises} exercises</p>
+      <p>Total of exercises: {sum} </p>
     </div>
   )
 }
-*/
 
-/*
-lines={course.parts.map(parts =>
-  ({ name: parts.name, id: parts.id })
-)}*/
 
 const Course = (props) => {
   console.log(props + "Pääseekö tänne? Course module")
   return (
     <div>
       <Header name={props.course} />
-      <Content coursename={props.titles} exe={props.amountofex} />
+      <Content parts={props.parts} />
+      <Total />
 
     </div>
   )
@@ -86,14 +81,8 @@ const App = (props) => {
     <div>
       <Course
         course={course.name}
-       
-        titles={course.parts.map(part =>
-          part.name
-        )}
-
-        amountofex={course.parts.map(part =>
-          part.exercises
-        )}
+        parts={course.parts}
+        total={course.total}
       />
     </div>
   )
