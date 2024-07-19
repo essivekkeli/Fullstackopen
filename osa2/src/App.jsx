@@ -27,9 +27,9 @@ const Content = (props) => {
 }
 
 const Total = ({ total }) => {
-  const sum = total ? total.reduce((acc, part) => {
-    console.log('mitä tulostuu', acc, part)
-    return acc + part.exercises
+  const sum = total ? total.reduce((cours, num) => {
+    console.log('mitä tulostuu', cours, num)
+    return cours + num.exercises
   }, 0) : 0;
 
   return (
