@@ -10,7 +10,7 @@ const Part = (props) => {
   console.log(props, "Part module")
   return (
     <div>
-      <p> {props.name} : {props.exercises} exercises</p>
+      <p>{props.name} : {props.exercises} exercises</p>
     </div>
   )
 }
@@ -26,11 +26,10 @@ const Content = (props) => {
   )
 }
 
-
 const Total = ({ total }) => {
-  const sum = total ? total.reduce((cours, num) => {
-    console.log('mitä tulostuu', cours, num)
-    return cours + num.exercises
+  const sum = total ? total.reduce((acc, part) => {
+    console.log('mitä tulostuu', acc, part)
+    return acc + part.exercises
   }, 0) : 0;
 
   return (
@@ -40,23 +39,18 @@ const Total = ({ total }) => {
   )
 }
 
-
 const Course = (props) => {
-  console.log(props, "Pääseekö tänne? Course module")
+  console.log(props, "Course module")
   return (
     <div>
       <Header name={props.course.name} />
       <Content parts={props.course.parts} />
-      <Total total={props.course.parts}/>
-
+      <Total total={props.course.parts} />
     </div>
   )
 }
 
-
-const App = (props) => {
-  console.log(props, "mitä prosp tulostaa Appin alussa")
-
+const App = () => {
   const course = {
     name: 'Half Stack application development',
     id: 1,
@@ -81,7 +75,7 @@ const App = (props) => {
 
   return (
     <div>
-      <Course course={course}/>
+      <Course course={course} />
     </div>
   )
 }
