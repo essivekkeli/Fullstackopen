@@ -1,7 +1,7 @@
 const Header = (props) => {
     return (
       <div>
-        <h1>{props.name}</h1>
+        <h2>{props.name}</h2>
       </div>
     )
   }
@@ -34,7 +34,7 @@ const Header = (props) => {
   
     return (
       <div>
-        <p>Total of exercises: {sum}</p>
+        <h3>Total of exercises: {sum}</h3>
       </div>
     )
   }
