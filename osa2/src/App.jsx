@@ -1,6 +1,73 @@
+//2.6-2.10
+
+import { useState } from 'react'
+
+const App = () => {
+  const [persons, setPersons] = useState([
+    { name: 'Arto Hellas' }
+  ]) 
+  const [newName, setNewName] = useState('your name')
+
+  
+
+  const addName = (event) => {
+    event.preventDefault()
+    console.log('nappia painettu', event.target)
+    setNewName()
+  }
+
+  const handlePerson = (event) => {
+    console.log(event.target.value)
+    console.log('person', event, target)
+    setPersons(persons.concat(newName))
+  }
+
+  const handleName = (event) => {
+    console.log(event.target.value)
+    setNewName(event.target.value)
+  }
 
 
-import Course from './course'
+
+  return (
+    <div>
+      <h2>Phonebook</h2>
+      <form onSubmit={addName}>
+        <div>
+          name: <input value={newName} onChange={handleName}/>
+          
+        </div>
+        <div>
+          <button type="submit">add</button>
+        </div>
+      </form>
+      <h2>Numbers</h2>
+      <p>
+        {persons.map(person =>
+            key={person.name} {newName},
+        )},
+      </p>
+      ...
+    </div>
+  )
+
+}
+
+export default App
+
+
+
+
+
+
+
+
+
+
+
+
+//2.1-2.5
+/*import Course from './course'
 
 const App = () => {
   const courses = [
@@ -59,4 +126,4 @@ const App = () => {
   )
 }
 
-export default App
+export default App*/
