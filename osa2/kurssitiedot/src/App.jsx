@@ -1,19 +1,4 @@
-//2.6-2.10
-
-
-
-
-
-
-
-
-
-
-
-
-
-//2.1-2.5
-/*import Course from './course'
+import Course from './course'
 
 const App = () => {
   const courses = [
@@ -72,4 +57,4 @@ const App = () => {
   )
 }
 
-export default App*/
+export default App
