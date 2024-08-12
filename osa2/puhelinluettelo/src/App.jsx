@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import personService from './Persons'
+import './index.css'
 
 const Person = ({ addName, newName, number, handleName, handleNumber }) => {
   return (
@@ -48,11 +49,28 @@ const Filter = ({ handleFilter }) => {
   )
 }
 
+const Notification = ({ message, messageType }) => {
+  if (message === null) {
+    return null
+  }
+
+  const notificationClass = messageType === 'error' ? 'notification error' : 'notification success'
+
+  return (
+    <div className={notificationClass}>
+      {message}
+    </div>
+  )
+}
+
+
 const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [number, setNumber] = useState('')
   const [filter, setFilter] = useState('')
+  const [message, setErrorMessage] = useState(null)
+  const [messageType, setMessageType] = useState('')
 
   useEffect(() => {
     personService
@@ -61,7 +79,6 @@ const App = () => {
         setPersons(response.data)
       })
   }, [])
-
 
 
   const addName = (event) => {
@@ -78,37 +95,47 @@ const App = () => {
         console.log('usercomfirmed tulostuu')
         const makeUpdate = { ...existingPerson, number: number }
 
-        axios
-        .put(`http://localhost:3001/persons/${existingPerson.id}`, makeUpdate)
-        .then(response => {
-          setPersons(persons.map(p => p.id !== existingPerson.id ? p : response.data))
-          setNewName('')
-          setNumber('')
-        })
-        .catch(error => {
-          console.log(`There was an error updating the person's number! ${error}`);
-        });
+        personService
+          .update(existingPerson.id, makeUpdate)
+          .then(response => {
+            setPersons(persons.map(p => p.id !== existingPerson.id ? p : response.data))
+            setNewName('')
+            setNumber('')
+            setErrorMessage(`${newName} number updated`)
+            setMessageType('success')
+            setTimeout(() => {
+              setErrorMessage(null)
+              setMessageType('')
+            }, 3000)
+          })
+          .catch(error => {
+            console.log(`There was an error updating the person's number! ${error}`);
+          });
       }
-      
     } else {
       const personObject = {
         name: newName,
         number: number
       }
-      axios
-        .post('http://localhost:3001/persons', personObject)
+
+      personService
+        .create(personObject)
         .then(response => {
           setPersons(persons.concat(response.data))
           setNewName('')
           setNumber('')
+          setErrorMessage(`Added ${newName}`)
+          setMessageType('success')
+          setTimeout(() => {
+            setErrorMessage(null)
+            setMessageType('')
+          }, 3000)
         })
         .catch(error => {
           console.log(`There was an error adding the person! ${error}`)
         })
-
     }
   }
-
 
   const handleDelete = (person) => {
     console.log('pääseekö handleDeleteen?')
@@ -117,12 +144,24 @@ const App = () => {
     if (userConfirmation) {
       console.log('Delete nappia painettu')
 
-      axios
-        .delete(`http://localhost:3001/persons/${person.id}`)
+      personService
+        .destroy(person.id)
         .then(() => {
           setPersons(persons.filter(p => p.id !== person.id))
+          setErrorMessage(`Deleted ${person.name} successfully!`)
+          setMessageType('success')
+          setTimeout(() => {
+            setErrorMessage(null)
+            setMessageType('')
+          }, 3000)
         })
         .catch(error => {
+          setErrorMessage(`Information of ${person.name} has already been removed!`)
+          setMessageType('error')
+          setTimeout(() => {
+            setErrorMessage(null)
+            setMessageType('')
+          }, 3000)
           console.log(`There was an error deleting the person! ${error}`)
         })
 
@@ -145,10 +184,10 @@ const App = () => {
     setFilter(event.target.value)
   }
 
-
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={message} messageType={messageType}/>
       <Filter
         handleFilter={handleFilter}
       />
